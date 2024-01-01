@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1"
+  },
+  "name": "codeial",
+  "version": "1.0.0",
+  "description": "Social Media Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoderUdSingh/Codeial.git"
+  },
+  "author": "Uddeshya Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoderUdSingh/Codeial/issues"
+  },
+  "homepage": "https://github.com/CoderUdSingh/Codeial#readme"
+}
