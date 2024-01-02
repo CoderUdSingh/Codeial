@@ -4,6 +4,8 @@ const port = 8000;
 const path = require("path");
 const mongoose = require("mongoose");
 
+app.use(express.urlencoded({ extended: false }));
+
 ////////////////////////////////////////////Setting up the DB//////////////////////////////////////////////////
 
 const User = require("./models/user_Schema");
@@ -15,21 +17,21 @@ dotenv.config({ path: "./config.env" });
 
 //////////////////////////////////// Establishing DB Connection Through Mongoose//////////////////////////////////
 
-const dbLocal = process.env.DATABASE_LOCAL;
-// const URI = process.env.DATABASE.replace(
-//   "<PASSWORD>",
-//   process.env.DATABASE_PASSWORD
-// );
-
-// mongoose
-//   .connect(URI)
-//   .then(() => console.log("Dadabase Connection is Successful on Atlas"))
-//   .catch((err) => console.error(`Error in connecting the DB ${err}`));
+// const dbLocal = process.env.DATABASE_LOCAL;
+const URI = process.env.DATABASE.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD
+);
 
 mongoose
-  .connect(dbLocal)
-  .then(() => console.log("Dadabase Connection is Successful"))
+  .connect(URI)
+  .then(() => console.log("Dadabase Connection is Successful on Atlas"))
   .catch((err) => console.error(`Error in connecting the DB ${err}`));
+
+// mongoose
+//   .connect(dbLocal)
+//   .then(() => console.log("Dadabase Connection is Successful"))
+//   .catch((err) => console.error(`Error in connecting the DB ${err}`));
 
 const db = mongoose.connection;
 
