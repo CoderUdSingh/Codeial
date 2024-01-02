@@ -3,9 +3,10 @@ const app = express();
 const port = 8000;
 const path = require("path");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 ////////////////////////////////////////////Setting up the DB//////////////////////////////////////////////////
 
 const User = require("./models/user_Schema");
