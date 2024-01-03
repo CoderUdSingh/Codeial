@@ -3,7 +3,23 @@ const User = require("../models/user_Schema");
 // Profile Page Action
 
 exports.profile = (req, res) => {
-  return res.render("profile_page", { title: "Users" });
+  User.findById(req.cookies.user_id)
+    .then((data) => {
+      if (req.cookies.user_id != data._id) {
+        return res.redirect("/users/sign-in");
+      } else {
+        return res.render("profile_page", {
+          title: "Users",
+          name: data.name,
+          email: data.email,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(`No Data Found ${err}`);
+    });
+
+  if (!req.cookies.user_id) res.redirect("/users/sign-in");
 };
 
 // Rendering Sign Up Page
