@@ -19,7 +19,7 @@ exports.create = (req, res) => {
   if (req.body.password != req.body.confirm_password)
     return res.redirect("back");
 
-  User.findOne({ email: req.body.email })
+  User.findOne({ username: req.body.username })
     .then((user) => {
       if (!user) {
         User.create(req.body);
@@ -27,4 +27,8 @@ exports.create = (req, res) => {
       }
     })
     .catch((err) => console.log("Error in creating the user while signing up"));
+};
+
+exports.createSession = (req, res) => {
+  res.redirect("/");
 };

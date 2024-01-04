@@ -3,8 +3,11 @@ const app = express();
 const port = 8000;
 const path = require("path");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const passport = require("passport");
+const passportLocal = require("./config/passport-local-strategy");
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 ////////////////////////////////////////////Setting up the DB//////////////////////////////////////////////////
 
@@ -51,6 +54,27 @@ app.set("layout extractScripts", true);
 //////////////////////////////// Setting up the view engine properties/////////////////////////
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
+
+////////////////////////Setting up initial configuration for express-session before use /////////////////
+
+app.use(
+  session({
+    name: "codeial",
+    //////// Needs to be changed before sending it into production ////////////
+    secret: "MoyeMoye",
+    saveUninitialized: false,
+    resave: false,
+    cookie: { maxAge: 5 * 1000 },
+  })
+);
+
+///////////////////////// To initialize passport library for use ///////////////////////////////
+app.use(passport.initialize());
+
+///////////////////////// To use express session//////////////////
+app.use(passport.session());
+
+///////////////////////////////// Routing for the HomePage ////////////////////////////////////
 app.use("/", require("./routes"));
 
 app.listen(port, (err) => {
