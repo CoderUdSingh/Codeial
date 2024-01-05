@@ -64,7 +64,8 @@ app.use(
     secret: "MoyeMoye",
     saveUninitialized: false,
     resave: false,
-    cookie: { maxAge: 5 * 1000 },
+    cookie: { maxAge: 60 * 1000 },
+    
   })
 );
 
@@ -73,6 +74,8 @@ app.use(passport.initialize());
 
 ///////////////////////// To use express session//////////////////
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 ///////////////////////////////// Routing for the HomePage ////////////////////////////////////
 app.use("/", require("./routes"));
