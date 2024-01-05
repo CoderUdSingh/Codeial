@@ -34,3 +34,12 @@ exports.create = (req, res) => {
 exports.createSession = (req, res) => {
   res.redirect("/");
 };
+
+exports.destroySession = (req, res) => {
+  req.logOut((err) => {
+    if (err) {
+      console.error(err);
+    }
+    return res.redirect("/");
+  });
+};

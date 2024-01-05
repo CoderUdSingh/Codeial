@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
+const MongoStore = require("connect-mongo");
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -65,7 +66,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     cookie: { maxAge: 60 * 1000 },
-    
+    store: MongoStore.create({ mongoUrl: URI }),
   })
 );
 
