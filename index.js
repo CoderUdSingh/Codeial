@@ -67,7 +67,7 @@ app.set("layout extractScripts", true);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
 
-////////////////////////Setting up initial configuration for express-session before use /////////////////
+//////////////////Setting up initial configuration for express-session before use /////////////
 
 app.use(
   session({
