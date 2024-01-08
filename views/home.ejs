@@ -23,6 +23,13 @@
       <% for(let post of posts) {%>
 
       <li><%=post.user.name%> : <%=post.content%></li>
+
+      <% if (locals.user && post.user.id==locals.user.id){%>
+
+      <small><a href="/posts/destroy/<%=post.id%>">x</a></small>
+
+      <%} %>
+
       <li>
         <form action="/comments/create" method="post">
           <input
