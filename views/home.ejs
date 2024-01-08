@@ -1,4 +1,4 @@
-<h1>Codeial | <%=title%></h1>
+<h1>Facebook(Junior) | <%=title%></h1>
 
 <section>
   <h4>Posts</h4>
@@ -11,6 +11,7 @@
       cols="30"
       rows="4"
       placeholder="Write Something Here..."
+      required
     ></textarea>
     <input type="submit" value="Post" />
   </form>
@@ -19,11 +20,32 @@
 
   <div>
     <ul>
-      <% for(let i of posts) {%>
+      <% for(let post of posts) {%>
 
+      <li><%=post.user.name%> : <%=post.content%></li>
       <li>
-        <p><%=i.content%></p>
-        <p><%=i.user.name%></p>
+        <form action="/comments/create" method="post">
+          <input
+            type="text"
+            name="content"
+            placeholder="add comments here"
+            required
+          />
+          <input type="hidden" name="post" value="<%=post._id%>" />
+
+          <input type="submit" value="-->" />
+        </form>
+
+        <div class="post-comments-list">
+          <ul id="post-comments-<%=post._id%>">
+            <% for(comment of post.comments) {%>
+            <li>
+              <p><%=comment.content%> : <%=comment.user.name%></p>
+            </li>
+
+            <%} %>
+          </ul>
+        </div>
       </li>
       <%} %>
     </ul>

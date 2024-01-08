@@ -9,5 +9,6 @@ router.get("/", passport.checkAuthentication, homeController.home);
 
 router.use("/users", require("./user_route"));
 router.use("/posts", require("./posts_route"));
+router.use("/comments", require("./comment_route"));
 
 module.exports = router;

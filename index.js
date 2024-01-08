@@ -76,7 +76,7 @@ app.use(
     secret: "MoyeMoye",
     saveUninitialized: false,
     resave: false,
-    cookie: { maxAge: 60 * 1000 },
+    cookie: { maxAge: 6000 * 1000 },
     store: MongoStore.create({ mongoUrl: URI }),
   })
 );
