@@ -23,3 +23,22 @@ exports.addComment = async (req, res) => {
     console.error(err);
   }
 };
+
+exports.destroyComment = async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if (comment && comment.user == req.user.id) {
+      const postId = comment.post;
+      await Comment.deleteOne({ _id: req.params.id });
+      await Post.findByIdAndUpdate(postId, {
+        $pull: { comments: req.params.id },
+      });
+      return res.redirect("back");
+    } else {
+      res.redirect("back");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  res.redirect("back");
+};
