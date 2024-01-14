@@ -1,7 +1,16 @@
 const User = require("../models/user_Schema");
 
 exports.profile = (req, res) => {
-  return res.render("user_profile", { title: "Users" });
+  User.findById(req.params.id)
+    .then((profileUser) => {
+      return res.render("user_profile", {
+        title: "Users",
+        profile_user: profileUser,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 // Rendering Sign Up Page
