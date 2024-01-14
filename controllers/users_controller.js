@@ -1,5 +1,6 @@
 const User = require("../models/user_Schema");
 
+// Rendering Profile Page
 exports.profile = (req, res) => {
   User.findById(req.params.id)
     .then((profileUser) => {
@@ -11,6 +12,21 @@ exports.profile = (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+//Updating profile information
+
+exports.update = (req, res) => {
+  if (req.params.id == req.user.id) {
+    User.findByIdAndUpdate(req.params.id, req.body)
+      .then((updatedUser) => {
+        console.log(updatedUser);
+        return res.redirect("back");
+      })
+      .catch((err) => console.error(err));
+  } else {
+    return res.status(401).send("unauthrised user");
+  }
 };
 
 // Rendering Sign Up Page
