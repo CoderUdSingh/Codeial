@@ -19,6 +19,8 @@ router.get("/sign-in", usersController.signIn);
 router.get("/sign-up", usersController.signUp);
 
 router.post("/create", usersController.create);
+
+////////////////////////////// SignIn Route /////////////////////////////////
 router.post(
   "/create-session",
   passport.authenticate("local", {
@@ -28,7 +30,15 @@ router.post(
   usersController.createSession
 );
 
-router.get("/sign-out", usersController.destroySession);
+router.get("/sign-out", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "You are logged out");
+    return res.redirect("/users/sign-in");
+  });
+});
 
 console.log("Users Router is working");
 

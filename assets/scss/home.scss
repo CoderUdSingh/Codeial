@@ -1,0 +1,31 @@
+#home-container {
+  display: flex;
+  height: 100%;
+  #feed-posts {
+    width: 85%;
+
+    padding: 10px;
+  }
+
+  #user-friends {
+    width: 15%;
+
+    padding: 10px;
+    border-left: 2px solid slategray;
+  }
+
+  #friend-name-container {
+    border: 2px solid #5950e7;
+    border-radius: 10px;
+    padding: 10px;
+    display: block;
+  }
+
+  #post-container {
+    border-top: 1px solid #241f1f;
+  }
+
+  ul {
+    list-style: none;
+  }
+}

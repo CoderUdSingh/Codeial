@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/css/header.css" />
   </head>
   <body>
-    <%- include('_header'); %> <%-body%> <%- include('_footer'); %> <%-script%>
+    <%- include('_header'); %> <% if(flash.success && flash.success.length>0)
+    {%> <%=flash.success%> <%} else{%><%=flash.error%><%} %> <%-body%> <%-
+    include('_footer'); %> <%-script%>
   </body>
-</html>
+</html> 

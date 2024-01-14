@@ -15,8 +15,6 @@ exports.home = async (req, res) => {
       posts: postAndUserData,
       all_users: allUsers,
     });
-
-    console.log(postData);
   } catch (err) {
     console.err(err);
   }

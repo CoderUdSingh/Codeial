@@ -1,31 +1,34 @@
 const User = require("../models/user_Schema");
 
 // Rendering Profile Page
-exports.profile = (req, res) => {
-  User.findById(req.params.id)
-    .then((profileUser) => {
-      return res.render("user_profile", {
-        title: "Users",
-        profile_user: profileUser,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+exports.profile = async (req, res) => {
+  try {
+    const profileUser = await User.findById(req.params.id);
+
+    return res.render("user_profile", {
+      title: "Users",
+      profile_user: profileUser,
     });
+  } catch (err) {
+    console.log(`This is the error ${err}`);
+    return;
+  }
 };
 
 //Updating profile information
 
-exports.update = (req, res) => {
-  if (req.params.id == req.user.id) {
-    User.findByIdAndUpdate(req.params.id, req.body)
-      .then((updatedUser) => {
-        console.log(updatedUser);
-        return res.redirect("back");
-      })
-      .catch((err) => console.error(err));
-  } else {
-    return res.status(401).send("unauthrised user");
+exports.update = async (req, res) => {
+  try {
+    if (req.params.id == req.user.id) {
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
+
+      return res.redirect("back");
+    } else {
+      return res.status(401).send("unauthrised user");
+    }
+  } catch (err) {
+    console.log(`This is the error ${err}`);
+    return;
   }
 };
 
@@ -56,15 +59,19 @@ exports.create = (req, res) => {
     .catch((err) => console.log("Error in creating the user while signing up"));
 };
 
+////////////////////////////// SignIn Route Controller /////////////////////////////////
 exports.createSession = (req, res) => {
+  req.flash("success", "Logged in successfully");
   res.redirect("/");
 };
 
-exports.destroySession = (req, res) => {
-  req.logOut((err) => {
-    if (err) {
-      console.error(err);
-    }
-    return res.redirect("/");
-  });
-};
+///////////////// Directly Using Inside Route Function Now /////////////////////////////
+// exports.destroySession = (req, res, next) => {
+//   req.logOut((err) => {
+//     if (err) {
+//       return next(err);
+//     }
+//   });
+//   req.flash("success", "You are logged out");
+//   return res.redirect("/");
+// };
