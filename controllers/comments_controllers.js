@@ -13,8 +13,10 @@ exports.addComment = async (req, res) => {
 
       post.comments.push(newComment);
       post.save();
+      req.flash("success", "Comment Added Successfully");
       return res.redirect("back");
     } else {
+      req.flash("error", "Error in adding the comment");
       console.log(`Error in getting the post`);
     }
 
@@ -33,11 +35,14 @@ exports.destroyComment = async (req, res) => {
       await Post.findByIdAndUpdate(postId, {
         $pull: { comments: req.params.id },
       });
+
+      req.flash("success", "Comment Deleted Successfully");
       return res.redirect("back");
     } else {
       res.redirect("back");
     }
   } catch (err) {
+    req.flash("error", "Error in deleting the comment");
     console.error(err);
   }
   res.redirect("back");

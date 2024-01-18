@@ -5,6 +5,7 @@ exports.home = async (req, res) => {
   try {
     const postAndUserData = await Post.find({})
       .populate("user")
+      .sort("-createdAt")
       .populate({ path: "comments", populate: { path: "user" } })
       .exec();
 

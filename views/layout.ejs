@@ -5,10 +5,46 @@
 
     <link rel="stylesheet" href="/css/layout.css" />
     <link rel="stylesheet" href="/css/header.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.js"
+      type="text/javascript"
+    ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
   <body>
-    <%- include('_header'); %> <% if(flash.success && flash.success.length>0)
-    {%> <%=flash.success%> <%} else{%><%=flash.error%><%} %> <%-body%> <%-
-    include('_footer'); %> <%-script%>
+    <%- include('_header'); %> <%-body%> <%- include('_footer'); %> <%-script%>
   </body>
-</html> 
+
+  <script>
+    <% if(flash.success && flash.success.length>0)
+
+      {%>new Noty({
+        type:'success',
+        theme:'sunset',
+        layout: 'top',
+    text: '<%=flash.success%>',
+    timeout:'2000'
+
+        }).show();<%}%>
+
+      <%
+        if(flash.error && flash.error.length>0)
+
+
+      {%> new Noty({
+        type:'error',
+        theme:'sunset',
+        layout: 'top',
+    text: '<%=flash.error%>',
+    timeout:'1500'
+
+        }).show(); <%}
+
+      %>
+  </script>
+</html>
