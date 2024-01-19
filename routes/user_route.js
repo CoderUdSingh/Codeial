@@ -12,6 +12,7 @@ router.get(
 router.post(
   "/update/:id",
   passport.checkAuthentication,
+  usersController.uploadedAvatar.single("avatar"),
   usersController.update
 );
 

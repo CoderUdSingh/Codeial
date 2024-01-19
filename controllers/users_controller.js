@@ -1,4 +1,23 @@
+const { fstat } = require("fs");
 const User = require("../models/user_Schema");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+const AVATAR_PATH = path.join("/uploads/users/avatar");
+
+// Configuring Multer
+
+const multerStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "..", AVATAR_PATH));
+  },
+  filename: function (req, file, cb) {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, file.fieldname + "-" + Date.now() + "." + ext);
+  },
+});
+
+exports.uploadedAvatar = multer({ storage: multerStorage });
 
 // Rendering Profile Page
 exports.profile = async (req, res) => {
@@ -20,14 +39,21 @@ exports.profile = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     if (req.params.id == req.user.id) {
-      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body);
+      let user = await User.findById(req.params.id);
 
+      user.name = req.body.name;
+      user.email = req.body.email;
+
+      if (req.file) {
+        user.avatar = AVATAR_PATH + "\\" + req.file.filename;
+      }
+      user.save();
       return res.redirect("back");
     } else {
       return res.status(401).send("unauthrised user");
     }
   } catch (err) {
-    console.log(`This is the error ${err}`);
+    req.flash("error", "Unable to update the profile");
     return;
   }
 };

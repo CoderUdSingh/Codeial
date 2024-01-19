@@ -56,10 +56,13 @@ db.on("error", (err) => {
   console.log(err);
 });
 
-////////////////////////////////////Including static files////////////////////////////////////
+/////////////Including static files by making the assets folder available globally//////////////////
 
 app.use(express.static("./assets"));
 app.use(require("express-ejs-layouts"));
+
+//////////////////////////////// Making uploads directory available for all ////////////////////
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 ///////////////////////////////// Setting up the Express Layouts///////////////////////////////
 app.set("layout extractStyles", true);
