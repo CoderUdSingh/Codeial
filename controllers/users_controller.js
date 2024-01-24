@@ -75,7 +75,7 @@ exports.create = (req, res) => {
   if (req.body.password != req.body.confirm_password)
     return res.redirect("back");
 
-  User.findOne({ username: req.body.username })
+  User.findOne({ name: req.body.name })
     .then((user) => {
       if (!user) {
         User.create(req.body);
