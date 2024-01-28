@@ -6,9 +6,9 @@ const User = require("../models/user_Schema");
 passport.use(
   new googleStrategy(
     {
-      clientID:
-        "785871020969-m44etqk4sclmvajpob9t072at2jkim2s.apps.googleusercontent.com",
-      clientSecret: "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",
+      // clientID:
+      //   "785871020969-m44etqk4sclmvajpob9t072at2jkim2s.apps.googleusercontent.com",
+      // clientSecret: "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",
       callbackURL: "http://127.0.0.1:8000/users/auth/google/callback",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
