@@ -41,6 +41,18 @@ router.get("/sign-out", function (req, res, next) {
   });
 });
 
-console.log("Users Router is working");
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/users/sign-in",
+    failureMessage: true,
+  }),
+  usersController.createSession
+);
 
 module.exports = router;
